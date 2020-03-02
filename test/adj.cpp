@@ -1,9 +1,8 @@
 
 #include <iostream>
 #include <sstream>
-#include <foo.h>
 #include <ArduinoJson.h>
-
+//sudo cp -a  ../src/ArduinoJson* /usr/local/include
 using namespace std;
 
 
@@ -13,7 +12,7 @@ char json[] =
 
 int main ( int argc, char * argv[])
 {
-  StaticJsonDocument<200> doc;
+  StaticJsonDocument<1024> doc;
   // Deserialize the JSON document
   // Add values in the document
   //
@@ -24,20 +23,36 @@ int main ( int argc, char * argv[])
 
   // Add an array.
   //
-  JsonArray data = doc.createNestedArray("data");
-  JsonObject motors = doc.createNestedObject("motors");
-  JsonObject power = motors.createNestedObject("power");
-  data.add(48.756080);
-  data.add(2.302038);
-  power["level"] = 150;
-  power["state"] = "on";
+
+  doc["motors"] = doc.createNestedObject("motors");
+  doc["motors"]["power"] = 150;
+  doc["motors"]["state"] = "on";
+  doc["motors"]["val"] = "value";
+  //JsonArray data = doc.createNestedArray("data");
+  doc["data"] = doc.createNestedArray("data");
+  //data.add(48.756080);
+  //data.add(2.302038);
+  doc["data"].add(48.756080);
+  doc["data"].add(2.345);
+		//doc.createNestedObject("motors");
+
+  //JsonObject motors = doc.createNestedObject("motors");
+  //JsonObject power = motors.createNestedObject("power");
+  //JsonObject state = power.createNestedObject("state");
+  //JsonObject level = power.createNestedObject("level");
+
+  //data.add(power);
+  //state.value = 150;
+  //power["level"] = 150;
+  //power["state"] = "on";
 
   // Generate the minified JSON and send it to a string.
   //
   long time1 = doc["time"];
 
-  serializeJson(doc, ss);
+  size_t err =  serializeJson(doc, ss);
   
+  cout << "serial error  " << err<<endl;
   cout << "ss out " << ss.str()<<endl;
   cout << " hello time 1 " << time1<< endl;
   
