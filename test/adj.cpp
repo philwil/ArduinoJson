@@ -35,7 +35,19 @@ int main ( int argc, char * argv[])
   doc["data"].add(48.756080);
   doc["data"].add(2.345);
 		//doc.createNestedObject("motors");
-
+  bool ok1 = doc.containsKey( "fun" );
+  bool ok2 = doc.containsKey( "data" );
+  int dsize = doc.size();
+  cout << " ok1 (fun) " << ok1 << endl;
+  cout << " ok2 (data) " << ok2 << endl;
+  cout << " dsize: " << dsize << endl;
+  
+  //for (JsonObject::iterator it = doc.begin(); it != doc.end(); ++ it){
+  //ss = it->key;
+  //cout << "Key : "<<ss.str() << " " ;
+    //cout << "val : "<<((it->value).as<char *>()) ;
+  //}
+  
   //JsonObject motors = doc.createNestedObject("motors");
   //JsonObject power = motors.createNestedObject("power");
   //JsonObject state = power.createNestedObject("state");
@@ -55,7 +67,8 @@ int main ( int argc, char * argv[])
   cout << "serial error  " << err<<endl;
   cout << "ss out " << ss.str()<<endl;
   cout << " hello time 1 " << time1<< endl;
-  
+
+
   DeserializationError error = deserializeJson(doc, json);
   const char* sensor = doc["sensor"];
   long time2 = doc["time"];
