@@ -38,9 +38,17 @@ int main ( int argc, char * argv[])
   bool ok1 = doc.containsKey( "fun" );
   bool ok2 = doc.containsKey( "data" );
   int dsize = doc.size();
+  int dasize = doc["data"].size();
   cout << " ok1 (fun) " << ok1 << endl;
   cout << " ok2 (data) " << ok2 << endl;
   cout << " dsize: " << dsize << endl;
+  cout << " dasize: " << dasize << endl;
+  int i;
+  for (i = 0; i < dsize; i++) {
+    JsonObject d = doc.getElement(i);
+    cout <<" indx :" << i << endl;
+    //cout <<" key :" << d.as<char *>() << endl;
+  }
   
   //for (JsonObject::iterator it = doc.begin(); it != doc.end(); ++ it){
   //ss = it->key;
